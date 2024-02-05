@@ -1,0 +1,20 @@
+[
+	{
+		"folderName": "maven_simple",
+		"title": "Simple java Spring project",
+		"parameters": [
+			{
+				"name": "firstName",
+				"type": "String",
+				"title": "First Name",
+				"description": "First name of the projects author"
+			},
+			{
+				"name": "lastName",
+				"type": "String",
+				"title": "Last Name",
+				"description": "Last name of the projects author"
+			}
+		]
+	}
+]

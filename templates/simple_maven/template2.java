@@ -1,0 +1,1 @@
+Hello my friend! I''m happy to see you {{lastName}} {{firstName}}

@@ -49,7 +49,6 @@ public class RequestTemplateController {
         logger.info("Template name: " + templateName);
         logger.info("Template params: " + formData);
 
-        TemplateService templateService = new TemplateService();
         templateService.prepareTemplate(templateName, formData);
 
         ModelAndView mv = new ModelAndView();

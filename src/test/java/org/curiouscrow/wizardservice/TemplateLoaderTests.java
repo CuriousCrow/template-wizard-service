@@ -25,7 +25,7 @@ public class TemplateLoaderTests {
     }
 
     @Test
-    void testTemplateParamsForm() throws IOException, URISyntaxException {
+    void TestTemplateParamsForm() throws IOException, URISyntaxException {
         TemplateService service = new TemplateService();
         List<TemplateInfo> templates = service.readTemplateStructure();
         Assertions.assertEquals(1, templates.size());

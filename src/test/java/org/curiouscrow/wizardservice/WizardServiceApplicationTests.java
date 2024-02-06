@@ -15,7 +15,7 @@ class WizardServiceApplicationTests {
 
 
     @Test
-    void testTemplateLoader() throws IOException {
+    void TestTemplateLoader() throws IOException {
         TemplateService service = new TemplateService();
         service.readTemplateStructure();
     }

@@ -1,10 +1,9 @@
 package org.curiouscrow.wizardservice;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.curiouscrow.wizardservice.entities.TemplateInfo;
 import org.curiouscrow.wizardservice.services.TemplateService;
-import org.curiouscrow.wizardservice.utils.TemplateUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -21,13 +20,13 @@ public class TemplateLoaderTests {
     @Test
     public void TestTemplateListLoading() {
         TemplateService service = new TemplateService();
-        Assertions.assertDoesNotThrow(service::readTemplateStructure);
+        Assertions.assertDoesNotThrow(service.descriptionReader::readTemplateStructure);
     }
 
     @Test
     void TestTemplateParamsForm() throws IOException, URISyntaxException {
         TemplateService service = new TemplateService();
-        List<TemplateInfo> templates = service.readTemplateStructure();
+        List<TemplateInfo> templates = service.descriptionReader.readTemplateStructure();
         Assertions.assertEquals(1, templates.size());
 
         URL templateURL = getClass().getClassLoader().getResource("templates/templateForm.mustache");
@@ -35,7 +34,7 @@ public class TemplateLoaderTests {
         String templateStr = Files.readString(Paths.get(templateURL.toURI()));
         logger.info(templateStr);
 
-        String resultForm = TemplateUtils.fillTemplateByValues(templateStr, templates.get(0));
-        logger.info(resultForm);
+//        String resultForm = TemplateUtils.fillTemplateByValues(templateStr, templates.get(0));
+//        logger.info(resultForm);
     }
 }

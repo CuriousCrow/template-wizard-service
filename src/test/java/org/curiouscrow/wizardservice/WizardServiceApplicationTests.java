@@ -9,15 +9,10 @@ import java.io.IOException;
 @SpringBootTest
 class WizardServiceApplicationTests {
 
-//    @Test
-//    void contextLoads() {
-//    }
-
-
     @Test
     void TestTemplateLoader() throws IOException {
         TemplateService service = new TemplateService();
-        service.readTemplateStructure();
+        service.descriptionReader.readTemplateStructure();
     }
 
 }

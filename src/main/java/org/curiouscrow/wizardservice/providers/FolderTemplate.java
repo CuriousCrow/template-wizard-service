@@ -1,4 +1,4 @@
-package org.curiouscrow.wizardservice.utils;
+package org.curiouscrow.wizardservice.providers;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 public class FolderTemplate implements TemplateItem {
 
     private static final Logger logger = Logger.getLogger(FolderTemplate.class.getName());
-
-    public static final int MAX_HIERARCHY_LEVEL = 5;
 
     Path path;
 

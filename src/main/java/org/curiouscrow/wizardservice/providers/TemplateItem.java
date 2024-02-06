@@ -1,4 +1,4 @@
-package org.curiouscrow.wizardservice.utils;
+package org.curiouscrow.wizardservice.providers;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package org.curiouscrow.wizardservice.controllers;
 
+import org.curiouscrow.wizardservice.config.TemplateConfigProperties;
+import org.curiouscrow.wizardservice.config.TemplateServiceConfig;
 import org.curiouscrow.wizardservice.entities.TemplateInfo;
 import org.curiouscrow.wizardservice.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +18,28 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 @Controller
+@RequestMapping("/templates")
 public class RequestTemplateController {
 
     private static final Logger logger = Logger.getLogger(RequestTemplateController.class.getName());
 
-    private static final String DIR_RESULT = "results";
-    private static final String DIR_OUTPUT_BASE = "out";
-    private static final String DIR_TEMPLATES = "templates";
-
     @Autowired
     private TemplateService templateService;
 
-    @GetMapping("/templates")
+    @Autowired
+    private TemplateConfigProperties properties;
+
+    @GetMapping("/test")
     @ResponseBody
-    public String getTemplateList() {
-        return "<ul><li>First template</li><li>Second template</li><li>Third template</li></ul>";
+    public String getRequestForTestEndpoint() {
+        String responseStr = "<html><head></head><body>Hello from template path <b>%s</b></body></html>";
+        return String.format(responseStr, properties.getSourcePath());
     }
 
-    @GetMapping("/templates/form/{templateName}")
+    @GetMapping("form/{templateName}")
     public ModelAndView getTemplateForm(@PathVariable String templateName) throws IOException {
 
-        Map<String, TemplateInfo> templates = templateService.readTemplateMap();
+        Map<String, TemplateInfo> templates = templateService.descriptionReader.readTemplateMap();
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("templateForm");
@@ -44,26 +47,25 @@ public class RequestTemplateController {
         return mv;
     }
 
-    @PostMapping(path = "/templates/prepare/{templateName}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(path = "/prepare/{templateName}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView prepareTemplateNew(@RequestParam HashMap<String, String> formData, @PathVariable String templateName) throws IOException {
         logger.info("Template name: " + templateName);
         logger.info("Template params: " + formData);
 
-        templateService.prepareTemplate(templateName, formData);
+        templateService.templateManager.prepareTemplate(templateName, formData);
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("projectLink");
 
-        Map<String, TemplateInfo> templates = templateService.readTemplateMap();
+        Map<String, TemplateInfo> templates = templateService.descriptionReader.readTemplateMap();
         TemplateInfo templateInfo = templates.get(templateName);
 
         mv.getModel().put("info", templateInfo);
         return mv;
     }
 
-    @GetMapping(path = "/templates/get/{templateName}", produces = "application/zip")
-    public @ResponseBody
-    byte[] getTemplateProjectByName(@PathVariable String templateName) throws IOException {
-        return Files.readAllBytes(Paths.get(DIR_RESULT, templateName + ".zip"));
+    @GetMapping(path = "/get/{templateName}", produces = "application/zip")
+    public @ResponseBody byte[] getTemplateProjectByName(@PathVariable String templateName) throws IOException {
+        return Files.readAllBytes(Paths.get(TemplateConfigProperties.ZIPPED_TEMPLATE_FOLDER, templateName + ".zip"));
     }
 }

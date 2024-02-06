@@ -5,6 +5,7 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Service;
 import ru.levolex.wizardservice.entities.TemplateInfo;
 import ru.levolex.wizardservice.utils.FolderTemplate;
 import ru.levolex.wizardservice.utils.TemplateItem;
@@ -20,10 +21,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Service
 public class TemplateService {
 
     private static final Logger logger = Logger.getLogger(TemplateService.class.getName());
@@ -72,5 +75,14 @@ public class TemplateService {
         ArrayList<TemplateInfo> outputList = gson.fromJson(inputString, type);
         logger.info("Hello from " + outputList);
         return outputList;
+    }
+
+    public Map<String, TemplateInfo> readTemplateMap() throws IOException {
+        List<TemplateInfo> templates = readTemplateStructure();
+        Map<String, TemplateInfo> templateMap = new HashMap<>();
+        templates.forEach(item -> {
+            templateMap.put(item.getFolderName(), item);
+        });
+        return templateMap;
     }
 }

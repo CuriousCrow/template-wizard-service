@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Entertainment Booking Form</title>
+    <title>Template parameters form</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style type="text/css">
@@ -109,42 +109,42 @@
     </style>
 </head>
 <body>
-<h1>{{title}}</h1>
+<h1>{{info.title}}</h1>
 <div class="form-style-5">
-    <form action="/templates/prepare/{{folderName}}" method="POST" name="myForm">
+    <form action="/templates/prepare/{{info.folderName}}" method="POST" name="myForm">
         <fieldset>
             <legend><span class="number">1</span> Project owner info</legend>
-            {{#parameters}}
-                <input type="text" name="{{name}}" placeholder="{{title}}">
-            {{/parameters}}
-<!--            <input type="text" name="firstName" placeholder="Enter your first name *">-->
-<!--            <input type="text" name="lastName" placeholder="Enter your last name *">-->
-<!--            <textarea name="description" placeholder="About yourself"></textarea>-->
-<!--            <label for="job">Interests:</label>-->
-<!--            <select id="job" name="field4">-->
-<!--                <optgroup label="Indoors">-->
-<!--                    <option value="fishkeeping">Fishkeeping</option>-->
-<!--                    <option value="reading">Reading</option>-->
-<!--                    <option value="boxing">Boxing</option>-->
-<!--                    <option value="debate">Debate</option>-->
-<!--                    <option value="gaming">Gaming</option>-->
-<!--                    <option value="snooker">Snooker</option>-->
-<!--                    <option value="other_indoor">Other</option>-->
-<!--                </optgroup>-->
-<!--                <optgroup label="Outdoors">-->
-<!--                    <option value="football">Football</option>-->
-<!--                    <option value="swimming">Swimming</option>-->
-<!--                    <option value="fishing">Fishing</option>-->
-<!--                    <option value="climbing">Climbing</option>-->
-<!--                    <option value="cycling">Cycling</option>-->
-<!--                    <option value="other_outdoor">Other</option>-->
-<!--                </optgroup>-->
-<!--            </select>-->
+            {{#info.parameters}}
+                <label for="{{name}}">{{title}}:</label>
+
+                {{#isString}}
+                <input type="text" name="{{name}}" placeholder="{{description}}">
+                {{/isString}}
+
+                {{#isText}}
+                <textarea name="{{name}}" placeholder="{{description}}"></textarea>
+                {{/isText}}
+
+                {{#isOptions}}
+                <select id="job" name="{{name}}">
+                    {{#options}}
+                        <option value="reading">{{.}}</option>
+                    {{/options}}
+                </select>
+                {{/isOptions}}
+
+                {{#isRadio}}
+                    {{#options}}
+                        <p><input type="radio" name="{{name}}" value="{{.}}">{{.}}</p>
+                    {{/options}}
+                {{/isRadio}}
+
+                {{#isCheckbox}}
+                    <p><input type="checkbox" value="{{name}}"> {{title}}</p>
+                {{/isCheckbox}}
+
+            {{/info.parameters}}
         </fieldset>
-<!--        <fieldset>-->
-<!--            <legend><span class="number">2</span> Additional Info</legend>-->
-<!--            <textarea name="field3" placeholder="About Your School"></textarea>-->
-<!--        </fieldset>-->
         <input type="submit" value="Apply" />
     </form>
 </div>

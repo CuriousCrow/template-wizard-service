@@ -1,19 +1,50 @@
 [
 	{
-		"folderName": "maven_simple",
+		"folderName": "simple_maven",
 		"title": "Simple java Spring project",
 		"parameters": [
 			{
 				"name": "firstName",
-				"type": "String",
 				"title": "First Name",
-				"description": "First name of the projects author"
+				"description": "First name of the projects author",
+				"isString": true
 			},
 			{
 				"name": "lastName",
-				"type": "String",
 				"title": "Last Name",
-				"description": "Last name of the projects author"
+				"description": "Last name of the projects author",
+				"isString": true
+			},
+			{
+				"name": "cv",
+				"title": "Curriculum vitae",
+				"description": "Add your small Bio",
+				"isText": true
+			},
+			{
+				"name": "buildingSystem",
+				"title": "Building System",
+				"description": "Building system",
+				"isOptions": true,
+				"options": [
+					"Maven",
+					"Gradle"
+				]
+			},
+			{
+				"name": "language",
+				"title": "Programming language",
+				"isRadio": true,
+				"options": [
+					"Java",
+					"Kotlin",
+					"Go"
+				]
+			},
+			{
+				"name": "includeTest",
+				"title": "Include dummy test classes",
+				"isCheckbox": true
 			}
 		]
 	}

@@ -3,10 +3,12 @@ package ru.levolex.wizardservice.controllers;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.levolex.wizardservice.entities.TemplateInfo;
 import ru.levolex.wizardservice.services.TemplateService;
 import ru.levolex.wizardservice.utils.TemplateItem;
 import ru.levolex.wizardservice.utils.TemplateUtils;
@@ -20,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -32,6 +35,9 @@ public class RequestTemplateController {
     private static final String DIR_OUTPUT_BASE = "out";
     private static final String DIR_TEMPLATES = "templates";
 
+    @Autowired
+    private TemplateService templateService;
+
     @GetMapping("/templates")
     @ResponseBody
     public String getTemplateList() {
@@ -39,10 +45,13 @@ public class RequestTemplateController {
     }
 
     @GetMapping("/templates/form/{templateName}")
-    public ModelAndView getTemplateForm(@PathVariable String templateName) {
+    public ModelAndView getTemplateForm(@PathVariable String templateName) throws IOException {
+
+        Map<String, TemplateInfo> templates = templateService.readTemplateMap();
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("templateForm");
-        mv.getModel().put("templateName", templateName);
+        mv.getModel().put("info", templates.get(templateName));
         return mv;
     }
 
@@ -56,7 +65,11 @@ public class RequestTemplateController {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("projectLink");
-        mv.getModel().put("templateName", templateName);
+
+        Map<String, TemplateInfo> templates = templateService.readTemplateMap();
+        TemplateInfo templateInfo = templates.get(templateName);
+
+        mv.getModel().put("info", templateInfo);
         return mv;
     }
 

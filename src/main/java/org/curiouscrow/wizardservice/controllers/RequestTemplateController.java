@@ -1,28 +1,17 @@
-package ru.levolex.wizardservice.controllers;
+package org.curiouscrow.wizardservice.controllers;
 
-import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.Mustache;
-import com.github.mustachejava.MustacheFactory;
+import org.curiouscrow.wizardservice.entities.TemplateInfo;
+import org.curiouscrow.wizardservice.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import ru.levolex.wizardservice.entities.TemplateInfo;
-import ru.levolex.wizardservice.services.TemplateService;
-import ru.levolex.wizardservice.utils.TemplateItem;
-import ru.levolex.wizardservice.utils.TemplateUtils;
-import ru.levolex.wizardservice.utils.ZipDirectory;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.Writer;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 

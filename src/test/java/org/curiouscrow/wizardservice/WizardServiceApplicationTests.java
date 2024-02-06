@@ -1,13 +1,10 @@
-package ru.levolex.wizardservice;
+package org.curiouscrow.wizardservice;
 
-import org.junit.jupiter.api.Assertions;
+import org.curiouscrow.wizardservice.services.TemplateService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.levolex.wizardservice.entities.TemplateInfo;
-import ru.levolex.wizardservice.services.TemplateService;
 
 import java.io.IOException;
-import java.util.List;
 
 @SpringBootTest
 class WizardServiceApplicationTests {

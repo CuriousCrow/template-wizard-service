@@ -1,10 +1,10 @@
-package ru.levolex.wizardservice;
+package org.curiouscrow.wizardservice;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.levolex.wizardservice.entities.TemplateInfo;
-import ru.levolex.wizardservice.services.TemplateService;
-import ru.levolex.wizardservice.utils.TemplateUtils;
+import org.curiouscrow.wizardservice.entities.TemplateInfo;
+import org.curiouscrow.wizardservice.services.TemplateService;
+import org.curiouscrow.wizardservice.utils.TemplateUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

@@ -1,13 +1,11 @@
-package ru.levolex.wizardservice.utils;
+package org.curiouscrow.wizardservice.utils;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import ru.levolex.wizardservice.entities.TemplateInfo;
+import org.curiouscrow.wizardservice.entities.TemplateInfo;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

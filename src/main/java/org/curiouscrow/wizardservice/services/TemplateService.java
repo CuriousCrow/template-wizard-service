@@ -1,16 +1,16 @@
-package ru.levolex.wizardservice.services;
+package org.curiouscrow.wizardservice.services;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.curiouscrow.wizardservice.entities.TemplateInfo;
 import org.springframework.stereotype.Service;
-import ru.levolex.wizardservice.entities.TemplateInfo;
-import ru.levolex.wizardservice.utils.FolderTemplate;
-import ru.levolex.wizardservice.utils.TemplateItem;
-import ru.levolex.wizardservice.utils.TemplateUtils;
-import ru.levolex.wizardservice.utils.ZipDirectory;
+import org.curiouscrow.wizardservice.utils.FolderTemplate;
+import org.curiouscrow.wizardservice.utils.TemplateItem;
+import org.curiouscrow.wizardservice.utils.TemplateUtils;
+import org.curiouscrow.wizardservice.utils.ZipDirectory;
 
 import java.io.FileWriter;
 import java.io.IOException;

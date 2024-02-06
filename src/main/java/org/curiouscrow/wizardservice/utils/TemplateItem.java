@@ -1,4 +1,4 @@
-package ru.levolex.wizardservice.utils;
+package org.curiouscrow.wizardservice.utils;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ru.levolex.wizardservice.entities;
+package org.curiouscrow.wizardservice.entities;
 
 import lombok.Data;
 

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -16,14 +17,22 @@ public class ZipDirectory {
         zipFolder(sourcePath, destinationFolder);
     }
 
-    public static void zipFolder(Path sourcePath, String destinationPath) throws IOException {
-        FileOutputStream fos = new FileOutputStream(destinationPath + "/" + sourcePath.getFileName().toString() + ".zip");
+    public static void zipFolder(Path sourcePath, String destinationPath, String resultFilename) throws IOException {
+        if (resultFilename.isEmpty()) {
+            resultFilename = sourcePath.getFileName().toString();
+        }
+
+        FileOutputStream fos = new FileOutputStream(destinationPath + "/" + resultFilename + ".zip");
         ZipOutputStream zipOut = new ZipOutputStream(fos);
 
         File fileToZip = new File(sourcePath.toString());
         zipFile(fileToZip, fileToZip.getName(), zipOut);
         zipOut.close();
         fos.close();
+    }
+
+    public static void zipFolder(Path sourcePath, String destinationPath) throws IOException {
+        zipFolder(sourcePath, destinationPath, "");
     }
 
     private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {

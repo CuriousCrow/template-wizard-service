@@ -52,7 +52,7 @@ public class RequestTemplateController {
         logger.info("Template name: " + templateName);
         logger.info("Template params: " + formData);
 
-        templateService.templateManager.prepareTemplate(templateName, formData);
+        String templateId = templateService.templateManager.prepareTemplate(templateName, formData);
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("projectLink");
@@ -61,6 +61,7 @@ public class RequestTemplateController {
         TemplateInfo templateInfo = templates.get(templateName);
 
         mv.getModel().put("info", templateInfo);
+        mv.getModel().put("templateId", templateId);
         return mv;
     }
 

@@ -10,6 +10,7 @@ import org.curiouscrow.wizardservice.providers.TemplateProvider;
 import org.curiouscrow.wizardservice.utils.ZipDirectory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Component
@@ -30,14 +32,21 @@ public class DefaultMustacheTemplateManager implements TemplateManager {
     private TemplateProvider templateProvider;
 
     @Override
-    public void prepareTemplate(String templateName, Map<String, String> values) throws IOException {
+    public String prepareTemplate(String templateName, Map<String, String> values) throws IOException {
         TemplateItem folderItem = templateProvider.loadTemplate(templateName);
         logger.info("Template loaded: " + folderItem.getName());
 
-        Path outPath = Files.createDirectories(Paths.get(TemplateConfigProperties.FILLED_TEMPLATE_FOLDER));
+        UUID requestId = UUID.randomUUID();
+
+        Path outPath = Files.createDirectories(Paths.get(TemplateConfigProperties.FILLED_TEMPLATE_FOLDER + "/" + requestId));
+
+        String templateId = templateName + "_" + UUID.randomUUID();
         fillTemplate(folderItem, values, outPath);
 
-        ZipDirectory.zipFolder(outPath.resolve(templateName), TemplateConfigProperties.ZIPPED_TEMPLATE_FOLDER);
+        ZipDirectory.zipFolder(outPath.resolve(templateName), TemplateConfigProperties.ZIPPED_TEMPLATE_FOLDER, templateId);
+
+        FileSystemUtils.deleteRecursively(outPath);
+        return templateId;
     }
 
     private void fillTemplate(TemplateItem item, Map<String, String> values, Path exportPath) {
@@ -58,6 +67,7 @@ public class DefaultMustacheTemplateManager implements TemplateManager {
                 Mustache mustache = mf.compile(new StringReader(item.templateText()), item.getName());
                 mustache.execute(writer, values);
                 writer.flush();
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

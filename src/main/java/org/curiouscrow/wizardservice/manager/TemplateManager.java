@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface TemplateManager {
 
-    void prepareTemplate(String templateName, Map<String, String> values) throws IOException;
+    String prepareTemplate(String templateName, Map<String, String> values) throws IOException;
 }

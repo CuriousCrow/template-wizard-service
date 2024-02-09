@@ -3,6 +3,7 @@ package org.curiouscrow.wizardservice.templateinfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.curiouscrow.wizardservice.entities.TemplateInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -20,9 +21,15 @@ public class JsonDocumentTemplateDescriptionReader implements TemplateDescriptio
 
     private static final Logger logger = Logger.getLogger(JsonDocumentTemplateDescriptionReader.class.getName());
 
+    @Value("${templatewizard.source-path}")
+    private String templatesDir;
+
+    @Value("${templatewizard.descriptor-file}")
+    private String templatesDescriptorFile;
+
     @Override
     public List<TemplateInfo> readTemplateStructure() throws IOException {
-        String inputString = Files.readString(Paths.get("templates", "templates.json"));
+        String inputString = Files.readString(Paths.get(templatesDir, templatesDescriptorFile));
 
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<TemplateInfo>>(){}.getType();

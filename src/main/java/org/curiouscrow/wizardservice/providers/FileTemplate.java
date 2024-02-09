@@ -17,16 +17,6 @@ public class FileTemplate implements TemplateItem {
     public FileTemplate(Path path) {
         this.path = path;
         this.name = String.valueOf(path.getFileName());
-
-
-        String templateText = null;
-        try {
-            templateText = Files.readString(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String fileName = path.getFileName().toString();
-        logger.info(fileName + ": " + templateText);
     }
 
     @Override

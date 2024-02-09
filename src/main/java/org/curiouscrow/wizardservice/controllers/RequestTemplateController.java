@@ -5,6 +5,7 @@ import org.curiouscrow.wizardservice.config.TemplateServiceConfig;
 import org.curiouscrow.wizardservice.entities.TemplateInfo;
 import org.curiouscrow.wizardservice.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,8 @@ public class RequestTemplateController {
     @Autowired
     private TemplateConfigProperties properties;
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String getRequestForTestEndpoint() {
-        String responseStr = "<html><head></head><body>Hello from template path <b>%s</b></body></html>";
-        return String.format(responseStr, properties.getSourcePath());
-    }
+    @Value("${templatewizard.template-form}")
+    private String templateForm;
 
     @GetMapping("form/{templateName}")
     public ModelAndView getTemplateForm(@PathVariable String templateName) throws IOException {
@@ -42,15 +39,14 @@ public class RequestTemplateController {
         Map<String, TemplateInfo> templates = templateService.descriptionReader.readTemplateMap();
 
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("templateForm");
+        mv.setViewName(templateForm);
         mv.getModel().put("info", templates.get(templateName));
         return mv;
     }
 
     @PostMapping(path = "/prepare/{templateName}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView prepareTemplateNew(@RequestParam HashMap<String, String> formData, @PathVariable String templateName) throws IOException {
-        logger.info("Template name: " + templateName);
-        logger.info("Template params: " + formData);
+        logger.info("Preparing template: " + templateName);
 
         String templateId = templateService.templateManager.prepareTemplate(templateName, formData);
 

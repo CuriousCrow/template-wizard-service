@@ -3,6 +3,7 @@ package org.curiouscrow.wizardservice.controllers;
 import org.curiouscrow.wizardservice.entities.TemplateInfo;
 import org.curiouscrow.wizardservice.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/templates")
+@ConditionalOnProperty(prefix = "templatewizard.api", name = "enabled", havingValue = "true")
 public class RestTemplateController {
 
     private static final Logger logger = Logger.getLogger(RestTemplateController.class.getName());

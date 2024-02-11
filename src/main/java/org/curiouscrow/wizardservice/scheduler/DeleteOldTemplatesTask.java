@@ -24,6 +24,9 @@ public class DeleteOldTemplatesTask {
     private void task() throws IOException {
 
         Path resultFolder = Paths.get("results");
+        if (!Files.exists(resultFolder)) {
+            return;
+        }
         Files.newDirectoryStream(resultFolder).forEach(file -> {
 
             try {

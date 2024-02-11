@@ -27,14 +27,11 @@ public class RequestTemplateController {
     @Autowired
     private TemplateService templateService;
 
-    @Autowired
-    private TemplateConfigProperties properties;
-
     @Value("${templatewizard.template-form}")
     private String templateForm;
 
     @GetMapping("form/{templateName}")
-    public ModelAndView getTemplateForm(@PathVariable String templateName) throws IOException {
+    public ModelAndView getTemplateForm(@PathVariable("templateName") String templateName) throws IOException {
 
         Map<String, TemplateInfo> templates = templateService.descriptionReader.readTemplateMap();
 
@@ -45,7 +42,7 @@ public class RequestTemplateController {
     }
 
     @PostMapping(path = "/prepare/{templateName}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView prepareTemplateNew(@RequestParam HashMap<String, String> formData, @PathVariable String templateName) throws IOException {
+    public ModelAndView prepareTemplateNew(@RequestParam HashMap<String, String> formData, @PathVariable("templateName") String templateName) throws IOException {
         logger.info("Preparing template: " + templateName);
 
         String templateId = templateService.templateManager.prepareTemplate(templateName, formData);
@@ -62,7 +59,7 @@ public class RequestTemplateController {
     }
 
     @GetMapping(path = "/get/{templateName}", produces = "application/zip")
-    public @ResponseBody byte[] getTemplateProjectByName(@PathVariable String templateName) throws IOException {
+    public @ResponseBody byte[] getTemplateProjectByName(@PathVariable("templateName") String templateName) throws IOException {
         return Files.readAllBytes(Paths.get(TemplateConfigProperties.ZIPPED_TEMPLATE_FOLDER, templateName + ".zip"));
     }
 }

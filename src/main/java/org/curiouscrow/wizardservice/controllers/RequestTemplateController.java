@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * Basic HTML-service endpoint controller
+ */
 @Controller
 @RequestMapping("/templates")
 public class RequestTemplateController {

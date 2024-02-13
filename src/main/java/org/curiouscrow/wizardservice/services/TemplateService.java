@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
 
+/**
+ * Service class that united all template functionality
+ */
 @Service
 public class TemplateService {
 

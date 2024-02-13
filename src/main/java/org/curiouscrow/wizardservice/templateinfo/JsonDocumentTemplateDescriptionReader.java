@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * JSON-document based implementation of TemplateDescriptionReader interface
+ */
 @Component
 public class JsonDocumentTemplateDescriptionReader implements TemplateDescriptionReader {
 

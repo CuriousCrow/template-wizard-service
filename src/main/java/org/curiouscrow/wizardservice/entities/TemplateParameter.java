@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Template parameter Data Object
+ */
 @Data
 public class TemplateParameter {
 

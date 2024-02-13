@@ -6,6 +6,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * File-based implementation of TemplateItem interface
+ */
 public class FileTemplate implements TemplateItem {
 
     private static final Logger logger = Logger.getLogger(FileTemplate.class.getName());

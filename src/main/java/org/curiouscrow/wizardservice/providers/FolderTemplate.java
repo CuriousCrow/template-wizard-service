@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Folder-based implementation of TemplateItem abstraction
+ */
 public class FolderTemplate implements TemplateItem {
 
     private static final Logger logger = Logger.getLogger(FolderTemplate.class.getName());

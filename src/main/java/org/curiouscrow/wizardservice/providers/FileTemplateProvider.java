@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * File-based basic implementation of TemplateProvider interface
+ */
 @Component
 public class FileTemplateProvider implements TemplateProvider {
 

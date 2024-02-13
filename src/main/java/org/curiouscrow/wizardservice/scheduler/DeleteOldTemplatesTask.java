@@ -11,6 +11,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
 import java.util.logging.Logger;
 
+/**
+ * Regular task for deleting expired template zip-archives
+ */
 @Component
 public class DeleteOldTemplatesTask {
 

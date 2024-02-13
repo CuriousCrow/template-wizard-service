@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * REST API endpoints
+ * enabled by application property templatewizard.api.enabled
+ */
 @RestController
 @RequestMapping("/api/templates")
 @ConditionalOnProperty(prefix = "templatewizard.api", name = "enabled", havingValue = "true")

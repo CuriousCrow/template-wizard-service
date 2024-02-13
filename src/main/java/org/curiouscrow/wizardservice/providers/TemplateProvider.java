@@ -5,5 +5,8 @@ package org.curiouscrow.wizardservice.providers;
  */
 public interface TemplateProvider {
 
+    /** Load template by name
+     * @return root template item
+     * */
     TemplateItem loadTemplate(String templateName);
 }

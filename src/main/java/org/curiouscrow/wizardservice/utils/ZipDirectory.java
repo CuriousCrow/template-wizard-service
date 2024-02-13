@@ -10,6 +10,9 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Utility class with ZIP-archive building static methods
+ */
 public class ZipDirectory {
     public static void main(String[] args) throws IOException {
         Path sourcePath = Paths.get("out", "sample_maven");
@@ -17,6 +20,12 @@ public class ZipDirectory {
         zipFolder(sourcePath, destinationFolder);
     }
 
+    /** Zip folder
+     * @param sourcePath folder to be zipped
+     * @param destinationPath result output directory
+     * @param resultFilename resulting zip filename
+     * @throws IOException common exception
+     * */
     public static void zipFolder(Path sourcePath, String destinationPath, String resultFilename) throws IOException {
         if (resultFilename.isEmpty()) {
             resultFilename = sourcePath.getFileName().toString();
@@ -31,23 +40,33 @@ public class ZipDirectory {
         fos.close();
     }
 
+    /** Zip folder with default zip filename
+     * @param destinationPath path to save resulting zip
+     * @param sourcePath folder to be zipped
+     * @throws IOException common exception
+     * */
     public static void zipFolder(Path sourcePath, String destinationPath) throws IOException {
         zipFolder(sourcePath, destinationPath, "");
     }
 
+    /** Inner Zip file/folder building method
+     * @param fileName resulting zip file name
+     * @param fileToZip file to be zipped
+     * @param zipOut output zip stream
+     * */
     private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
         if (fileToZip.isHidden()) {
             return;
         }
         if (fileToZip.isDirectory()) {
-            if (fileName.endsWith("/")) {
-                zipOut.putNextEntry(new ZipEntry(fileName));
-                zipOut.closeEntry();
-            } else {
-                zipOut.putNextEntry(new ZipEntry(fileName + "/"));
-                zipOut.closeEntry();
-            }
+            String name = fileName + (fileName.endsWith("/") ? "" : "/");
+            zipOut.putNextEntry(new ZipEntry(name));
+            zipOut.closeEntry();
+
             File[] children = fileToZip.listFiles();
+            if (children == null) {
+                return;
+            }
             for (File childFile : children) {
                 zipFile(childFile, fileName + "/" + childFile.getName(), zipOut);
             }

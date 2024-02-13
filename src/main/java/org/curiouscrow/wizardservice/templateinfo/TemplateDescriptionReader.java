@@ -11,7 +11,15 @@ import java.util.Map;
  */
 public interface TemplateDescriptionReader {
 
+    /** Retrieve template info list
+     * @return list of all provided templates
+     * @throws IOException commont exception
+     * */
     List<TemplateInfo> readTemplateStructure() throws IOException;
 
+    /** Retrieve template info map
+     * @return map of all provided template with template name as a map key
+     * @throws IOException common exception
+     * */
     Map<String, TemplateInfo> readTemplateMap() throws IOException;
 }

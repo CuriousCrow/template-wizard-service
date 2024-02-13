@@ -36,18 +36,14 @@ public class JsonDocumentTemplateDescriptionReader implements TemplateDescriptio
 
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<TemplateInfo>>(){}.getType();
-        ArrayList<TemplateInfo> outputList = gson.fromJson(inputString, type);
-        logger.info("Hello from " + outputList);
-        return outputList;
+        return gson.<ArrayList<TemplateInfo>>fromJson(inputString, type);
     }
 
     @Override
     public Map<String, TemplateInfo> readTemplateMap() throws IOException {
         List<TemplateInfo> templates = readTemplateStructure();
         Map<String, TemplateInfo> templateMap = new HashMap<>();
-        templates.forEach(item -> {
-            templateMap.put(item.getFolderName(), item);
-        });
+        templates.forEach(item -> templateMap.put(item.getFolderName(), item));
         return templateMap;
     }
 }

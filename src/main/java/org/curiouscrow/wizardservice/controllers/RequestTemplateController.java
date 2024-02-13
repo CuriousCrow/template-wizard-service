@@ -33,6 +33,11 @@ public class RequestTemplateController {
     @Value("${templatewizard.template-form}")
     private String templateForm;
 
+    /** Endpoint for page with template parameters form
+     * @param templateName template identificator (e.g. template directory)
+     * @return template form mustache page
+     * @throws IOException common exception
+     * */
     @GetMapping("form/{templateName}")
     public ModelAndView getTemplateForm(@PathVariable("templateName") String templateName) throws IOException {
 
@@ -44,6 +49,12 @@ public class RequestTemplateController {
         return mv;
     }
 
+    /** Endpoint triggering building template artifact filled with form data
+     * @param formData html-form custom template parameters
+     * @param templateName template identificator (e.g. template directory)
+     * @return template form mustache page
+     * @throws IOException common exception
+     * */
     @PostMapping(path = "/prepare/{templateName}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView prepareTemplateNew(@RequestParam HashMap<String, String> formData, @PathVariable("templateName") String templateName) throws IOException {
         logger.info("Preparing template: " + templateName);
@@ -61,6 +72,11 @@ public class RequestTemplateController {
         return mv;
     }
 
+    /** Endpoint providing template artifact
+     * @param templateName template identificator (e.g. template directory)
+     * @return resulting template zip-file
+     * @throws IOException common exception
+     * */
     @GetMapping(path = "/get/{templateName}", produces = "application/zip")
     public @ResponseBody byte[] getTemplateProjectByName(@PathVariable("templateName") String templateName) throws IOException {
         return Files.readAllBytes(Paths.get(TemplateConfigProperties.ZIPPED_TEMPLATE_FOLDER, templateName + ".zip"));

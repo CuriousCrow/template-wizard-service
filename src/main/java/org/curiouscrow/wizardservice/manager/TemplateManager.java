@@ -9,5 +9,12 @@ import java.util.Map;
  */
 public interface TemplateManager {
 
+    /**
+     * Prepares result template item string
+     * @param templateName template string identifier
+     * @param values template parameters values
+     * @return template filled with values
+     * @throws IOException common exception
+     */
     String prepareTemplate(String templateName, Map<String, String> values) throws IOException;
 }

@@ -23,6 +23,10 @@ public class DeleteOldTemplatesTask {
 
     private static final long EXEC_DELAY = 1000;
 
+    /**
+     * Task fires every EXEC_DELAY and delete templates older than TTL
+     * @throws IOException common exception
+     */
     @Scheduled(fixedDelay = EXEC_DELAY)
     private void task() throws IOException {
 

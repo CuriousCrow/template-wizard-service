@@ -1,7 +1,7 @@
 [
 	{
 		"folderName": "simple_maven",
-		"title": "Simple java Spring project",
+		"title": "Simple Java Maven Project",
 		"parameters": [
 			{
 				"name": "firstName",

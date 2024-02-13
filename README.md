@@ -27,7 +27,7 @@ public class DemoApplication {
 ## Template configuration settings
 The following application settings (`application.properties`) are used to configure the library:
 
-`templatewizard.source-path` - used to setup path to user-generated templates
+`templatewizard.source-path` - used to set up path to user-generated templates
 
 `templatewizard.descriptor-file` - templates info configuration document
 

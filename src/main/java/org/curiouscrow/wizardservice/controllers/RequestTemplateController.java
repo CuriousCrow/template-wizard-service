@@ -6,6 +6,8 @@ import org.curiouscrow.wizardservice.entities.TemplateInfo;
 import org.curiouscrow.wizardservice.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,12 @@ public class RequestTemplateController {
         Map<String, TemplateInfo> templates = templateService.descriptionReader.readTemplateMap();
 
         ModelAndView mv = new ModelAndView();
+
+        if (!templates.containsKey(templateName)) {
+            mv.setStatus(HttpStatus.NOT_FOUND);
+            return mv;
+        }
+
         mv.setViewName(templateForm);
         mv.getModel().put("info", templates.get(templateName));
         return mv;
